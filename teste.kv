@@ -1,0 +1,74 @@
+<Gerenciador>:
+    Menu:
+        name: 'menu'
+    Tarefas: 
+        name: 'tarefas'
+
+<Menu>:
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 50
+        spacing: 75
+        canvas:
+            Color:
+                rgb: 0,0,0,0
+            Rectangle:
+                size: self.size
+                pos: self.pos
+        Image:
+            source: './img/galodoido.jpg'
+            size_hint_y: None
+            height: 200
+            allou_stretch: True #permitw que a imagem se estique
+        Botao:
+            text:'tarefas'
+            color: 0, 0, 0, 1
+            on_release: app.root.current = 'tarefas'
+        Botao:
+            text:'sair'
+            color: 0, 0, 0, 1
+            on_release: root.confirmacao()
+
+
+<Tarefas>:
+    
+    BoxLayout:
+        orientation: 'vertical'
+        ActionBar:
+            ActionView:
+                ActionPrevious:#botao de voltar
+                    title:'Tarefas'
+                    on_release: app.root.current = 'menu'
+                ActionSeparator:
+                ActionButton: 
+                    text:'sair'
+                    on_release: app.root.get_screen('menu').confirmacao()#get_screen pega o menu
+                
+        ScrollView:
+            BoxLayout:
+                id: box
+                orientation: 'vertical'
+                size_hint_y: None
+                height: self.minimum_height
+        BoxLayout:
+            size_hint_y: None #altura
+            height: 60
+            TextInput:
+                id: texto
+            Button:
+                text:'+'
+                size_hint_x: None #largura
+                width: 60 
+                on_release: root.addWidget()
+
+<Tarefa>:
+    size_hint_y: None
+    height: 200
+    Label:
+        id: label
+        font_size: 30
+    Button:
+        text: 'x'
+        size_hint_x: None 
+        width: 60
+        on_release: app.root.get_screen('tarefas').removeWidget(root) #root pega o widget principal
